@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<title>Smart POS | Profile Page</title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+	<link href="../assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
+	<link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="../assets/css/animate.min.css" rel="stylesheet" />
+	<link href="../assets/css/style.min.css" rel="stylesheet" />
+	<link href="../assets/css/style-responsive.min.css" rel="stylesheet" />
+	<link href="../assets/css/theme/default.css" rel="stylesheet" id="theme" />
+	<!-- ================== END BASE CSS STYLE ================== -->
+	
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="../assets/plugins/pace/pace.min.js"></script>
+	<!-- ================== END BASE JS ================== -->
+	<!-- ================== BEGIN NODE JS ================== -->
+	<script>window.$ = window.jQuery = require('jquery');</script>
+	<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+	<script src="../Renderer/renderer.js"></script>
+	<script>var Storages = require('../model/Storages.js').prototype;</script>
+	<!-- ================== END NODE JS ================== -->
+</head>
+<body onload="GetProfile()">
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
+	<!-- end #page-loader -->
+	
+	<!-- begin #page-container -->
+	<div id="page-container" class="fade page-sidebar-fixed page-header-fixed page-sidebar-minified">
+		
+		<!-- begin #content -->
+		<div id="content" class="content">
+			<!-- begin page-header -->
+			<h1 class="page-header">Profile Page</h1>
+			<!-- end page-header -->
+			<!-- begin profile-container -->
+            <div class="profile-container">
+                <!-- begin profile-section -->
+                <div class="profile-section">
+                    <!-- begin profile-left -->
+                    <div class="profile-left">
+                        <!-- begin profile-image -->
+                        <div class="profile-image">
+                            <img id="img-personal" src="" />
+                            <i class="fa fa-user hide"></i>
+                        </div>
+                        <!-- end profile-image -->
+                        <div class="m-b-10">
+                            <a href="#" class="btn btn-warning btn-block btn-sm" onclick="EditProfilePhoto()">Change Picture</a>
+                            <input type="file" id="img-upload" style="display: none;" onchange="readURL(this);" />
+                        </div>
+                    </div>
+                    <!-- end profile-left -->
+                    <!-- begin profile-right -->
+                    <div class="profile-right">
+                        <!-- begin profile-info -->
+                        <div class="profile-info">
+                            <!-- begin table -->
+                            <div class="table-responsive">
+                                <table class="table table-profile">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>
+                                                <h4 id="user">Micheal	Meyer <small>Lorraine Stokes</small></h4>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="highlight">
+                                            <td class="field">Password</td>
+                                            <td><input type="password" id="txt-password" class="form-control input-inline input-xs" /></td>
+                                        </tr>
+                                        <tr class="divider">
+                                            <td colspan="2"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Re-Password</td>
+                                            <td><input type="password" id="txt-rep-password" class="form-control input-inline input-xs" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Nome</td>
+                                            <td><input type="text" id="txt-name" class="form-control input-inline input-xs" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Cognome</td>
+                                            <td><input type="text" id="txt-surname" class="form-control input-inline input-xs" /></td>
+                                        </tr>
+                                        <tr class="divider">
+                                            <td colspan="2"></td>
+                                        </tr>
+                                        <tr class="highlight">
+                                            <td class="field">E-Mail</td>
+                                            <td><input type="text" id="txt-mail" class="form-control input-inline input-xs" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td><textarea id="base" style="display: none;"></textarea></td>
+                                            <td><button id="Save" class="btn btn-success btn-sm" style="float: right;" onclick="EditProfile()">Save</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"><div id="Results"></div></td>
+                                        </tr>    
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- end table -->
+                        </div>
+                        <!-- end profile-info -->
+                    </div>
+                    <!-- end profile-right -->
+                </div>
+                <!-- end profile-section -->
+            </div>
+			<!-- end profile-container -->
+		</div>
+		<!-- end #content -->
+		
+		<!-- begin scroll to top btn -->
+		<a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+		<!-- end scroll to top btn -->
+	</div>
+	<!-- end page container -->
+	
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="../assets/plugins/jquery/jquery-1.9.1.min.js"></script>
+	<script src="../assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
+	<script src="../assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+	<script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+	<!--[if lt IE 9]>
+		<script src="assets/crossbrowserjs/html5shiv.js"></script>
+		<script src="assets/crossbrowserjs/respond.min.js"></script>
+		<script src="assets/crossbrowserjs/excanvas.min.js"></script>
+	<![endif]-->
+	<script src="../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="vassets/plugins/jquery-cookie/jquery.cookie.js"></script>
+	<!-- ================== END BASE JS ================== -->
+	
+	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
+    <script src="../assets/js/apps.min.js"></script>
+    <script src="../assets/alertify/alertify.min.js"></script>
+	<link href="../assets/alertify/css/themes/default.min.css" rel="stylesheet">
+	<link href="../assets/alertify/css/alertify.min.css" rel="stylesheet">
+	<!-- ================== END PAGE LEVEL JS ================== -->
+	
+	<script>
+		$(document).ready(function() {
+			App.init();
+		});
+	</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-53034621-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- Load include -->
+<script src="../Includes/header.js"></script>
+<script src="../Includes/menu-left.js"></script>
+<script src="../Includes/footer.js"></script>
+<!-- End Includes-->
+<script>
+$('#user').html(Storages.getSession('_Users'));
+
+function EditProfilePhoto(){
+    $("#img-upload").trigger("click");
+}
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#base').val(e.target.result);
+            $('#img-personal').attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+
+}
+</script>
+</body>
+</html>
